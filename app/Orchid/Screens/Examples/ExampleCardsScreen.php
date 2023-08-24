@@ -3,7 +3,7 @@
 namespace App\Orchid\Screens\Examples;
 
 use Illuminate\Http\Request;
-use Orchid\Platform\Models\User;
+use App\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;

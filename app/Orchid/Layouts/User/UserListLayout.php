@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\User;
 
-use Orchid\Platform\Models\User;
+use App\Models\User;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -13,6 +13,7 @@ use Orchid\Screen\Components\Cells\DateTimeSplit;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Persona;
 use Orchid\Screen\Layouts\Table;
+use Orchid\Support\Color;
 use Orchid\Screen\TD;
 
 class UserListLayout extends Table
@@ -56,7 +57,10 @@ class UserListLayout extends Table
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
                 ->sort(),
-
+            TD::make('activation_status', __('Activation Status'))->render(fn (User $user) =>
+                Button::make( ucfirst( $user->activation_status))
+                ->type($user->activation_status==="approved"? Color::SUCCESS:  Color::WARNING)
+            )->sort(),
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')

@@ -18,6 +18,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'activation_status',
         'permissions',
     ];
 
@@ -51,6 +52,7 @@ class User extends Authenticatable
            'id'         => Where::class,
            'name'       => Like::class,
            'email'      => Like::class,
+           'activation_status' => Like::class,
            'updated_at' => WhereDateStartEnd::class,
            'created_at' => WhereDateStartEnd::class,
     ];
@@ -66,5 +68,6 @@ class User extends Authenticatable
         'email',
         'updated_at',
         'created_at',
+        'activation_status',
     ];
 }

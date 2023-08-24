@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Orchid\Access\Impersonation;
-use Orchid\Platform\Models\User;
+use App\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
@@ -151,6 +151,7 @@ class UserEditScreen extends Screen
      */
     public function save(User $user, Request $request)
     {
+
         $request->validate([
             'user.email' => [
                 'required',
@@ -166,11 +167,12 @@ class UserEditScreen extends Screen
         $user->when($request->filled('user.password'), function (Builder $builder) use ($request) {
             $builder->getModel()->password = Hash::make($request->input('user.password'));
         });
+        $data = $request->collect('user')->except(['password', 'permissions', 'roles'])->toArray();
 
-        $user
-            ->fill($request->collect('user')->except(['password', 'permissions', 'roles'])->toArray())
+        $user->fill($data)
             ->fill(['permissions' => $permissions])
             ->save();
+
 
         $user->replaceRoles($request->input('user.roles'));
 

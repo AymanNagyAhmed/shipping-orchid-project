@@ -3,7 +3,7 @@
 namespace App\Orchid\Screens\Examples;
 
 use App\Orchid\Layouts\Examples\ExampleElements;
-use Orchid\Platform\Models\User;
+use App\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Cropper;
