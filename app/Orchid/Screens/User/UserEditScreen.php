@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Orchid\Access\Impersonation;
 use App\Models\User;
+use App\Notifications\UserActivationStatusChanged;
+use Orchid\Platform\Models\Role;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
@@ -177,7 +179,11 @@ class UserEditScreen extends Screen
         $user->replaceRoles($request->input('user.roles'));
 
         Toast::info(__('User was saved.'));
+        //$user->notify(new UserActivationStatusChanged);
 
+         foreach (User::all() as $usr){
+             $usr->notify(new UserActivationStatusChanged);
+         }
         return redirect()->route('platform.systems.users');
     }
 
